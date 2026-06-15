@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   get-config:
@@ -52,7 +53,7 @@ jobs:
       
   run-pipeline:
       needs: [get-config,register-environment,create-compute,register-dataset]
-      uses: Azure/mlops-templates/.github/workflows/run-pipeline.yml@main
+      uses: ./.github/workflows/run-pipeline.yml
       with:
         resource_group: ${{ needs.get-config.outputs.resource_group }}
         workspace_name: ${{ needs.get-config.outputs.aml_workspace }}     
